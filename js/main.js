@@ -16,6 +16,7 @@ $(function () {
         var ww = window.innerWidth;
         var mob_scroll = 400;
         var page_mtop = [];
+        var scTop = $(".main_wrap").scrollTop();
         
         //모바일구분
         if (ww > 0 && ww <= 500) {
@@ -447,7 +448,8 @@ $(function () {
             $(".menu_list").slideUp(500);
         });
 
-
+        var new_photo_title=["애플 쿠키 라떼","아이스 애플 쿠키 라떼", "아이스 블론드 애플 쿠키 라떼", "아이스 블랙 글레이즈드 라떼" , "블론드 애플 쿠키 라떼" , "블랙 글레이즈드 라떼"];
+        var new_photo_info=["제철사과와 커피의 달콤 쌉싸름한 만남. 국내산 청송 사과 쿠키가 토핑이된 매력적인 맛의 카페 라떼로 부드럽게 리프레시 해보세요", "제철사과와 커피의 달콤 쌉싸름한 만남.국내산 청송 사과 쿠키가 토핑이된 매력적인 맛의 카페 라떼로 부드럽게 리프레시 해보세요","제철사과와 커피의 달콤 쌉싸름한 만남. 국내산 청송 사과 쿠키가 토핑이된 매력적인 맛의 카페 라떼를 블론드 원두로 즐겨보세요", "진한 커피와 달콤한 글레이즈드 크림의 부드러운 만남. 깊어가는 가을, 다시 돌아온 스타벅스의 아인슈페너를 즐겨보세요", "제철사과와 커피의 달콤 쌉싸름한 만남. 국내산 청송 사과 쿠키가 토핑이된 매력적인 맛의 카페 라떼를 블론드 원두로 즐겨보세요", "진한 커피와 달콤한 글레이즈드 크림의 부드러운 만남. 깊어가는 가을, 다시 돌아온 스타벅스의 아인슈페너를 즐겨보세요"];
         //new 
         $(".new_gallery").find("li").find("a").click(function (e) {
             e.preventDefault();
@@ -464,15 +466,26 @@ $(function () {
                 if(li_idx>=0 && li_idx<=2){
                     $(".new_wrap_next_mobile.mo1").find(".new_photo").attr("src","images/z"+(li_idx+1)+".png");
                      $(".new_wrap_next_mobile.mo1").fadeIn(500);
-                    $(".new_wrap_next_mobile.mo1").fadeIn(500);
+                    
+                    $(".main_wrap").stop().animate({
+                        scrollTop: page_mtop[2] + "px"
+                    }, 10, "easeInOutQuint");
+                    
                 }else if(li_idx>=3 && li_idx<=5){
                    console.log("여기");
                     $(".new_wrap_next_mobile.mo2").find(".new_photo").attr("src","images/z"+(li_idx+1)+".png");
-                     $(".new_wrap_next_mobile.mo1").fadeIn(500);
-                    $(".new_wrap_next_mobile.mo2").fadeIn(500);
+                     $(".new_wrap_next_mobile.mo2").fadeIn(500);
+                    $(".main_wrap").stop().animate({
+                        scrollTop: (page_mtop[2]+win) + "px"
+                    }, 10, "easeInOutQuint");
                 }
                 
+                
             }
+            
+            $(".new_photo_wrap").find("span").text(new_photo_title[li_idx]);
+            $(".new_photo_wrap").find("p").text(new_photo_info[li_idx]);
+            
 
         });
 
@@ -515,24 +528,39 @@ $(function () {
             $(".reward_left_next_mobile.login").fadeOut(0);
             
         });
-
+        
+        var co_info_title=["House Blend 250g","Breakfast Blend 250g", "Colombia 250g", "Kenya 250g", "Ethiopia 250g", "Decaf House Blend 250g"];
+        var co_info_span=["깔끔하고 균형잡힌 맛이 특징인 중간정도 무게감의 커피 스타벅스에서 가장 인기 있는 커피 입니다. 하우스 블렌드는 중간 정도의 무게감을 가지고 있으며, 깨끗하고 깔끔한 맛과 너트향의 풍미가 잘 조화된 라틴 아메리카 혼합커피입니다.", "가벼운 무게감에 상쾌한 느낌의 아침에 마시기 좋고 밝은 하루를 시작하기 좋은 커피!브렉퍼스트 블렌드는 가볍게 로스팅 되어 아침에 마실 때 깔끔한 느낌이 더욱 살아납니다. 혀 위에서 춤추는 선명한 느낌은 마치 오렌지쥬스를 마실때와 같은 청량감을 느끼게 합니다. 깔끔한 뒷 맛이 일품인 이 커피로 상쾌한 하루를 시작해 보시길 바랍니다.","견과류의 풍미를 간직한 부드럽고 균형잡힌 커피 촉촉한 감촉과 진한 풍미가 있는 이 경이로운 콜롬비아산 커피는 달지 않은 호두 및 부드러운 견과류의 느낌이 살아 있습니다.","열대성 과일의 향기와 신비로움으로 깔끔한 주스와 같은 느낌을 가진 커피케냐 커피는 주로 상큼하고 깔끔한 맛과 함께 자몽과 와인의 풍미를 지니며, 입 안에 꽉 찬 무게감을 가지고 있습니다." , "다크초콜릿의 벨벳 같은 부드러움과 후추 같은 스파이시함, 달콤한 감귤류의 풍미가 특징인 원두에티오피아는 커피의 발상지인 만큼 다양한 커피에 대한 이야기들과 뛰어난 퀄리티의 커피를 생산하는 곳입니다. 매우 아름답고도, 정교한 이 원두는 에티오피아의 풍요로운 유산을 기리는 커피의식에 대한 존경심과 절묘한 조화를 이룹니다.","깔끔하고 균형잡힌 맛이 특징인 중간정도 무게감의 커피스타벅스에서 가장 인기 있는 커피 중 하나인 하우스 블렌드는 중간 정도의 무게감을 가지고 있으며, 깨끗하고 깔끔한 맛과 너트향의 풍미가 잘 조화된 라틴 아메리카 혼합커피입니다."];
         //coffee
         $(".co_list").find("li").click(function (e) {
             e.preventDefault();
             var co_idx = $(this).index();
+            
+            //console.log(obj);
             if (mob == 1) {
-                console.log(co_idx);
+                //console.log(co_idx);
                 if(co_idx>=0 && co_idx<3){
                     $(".coffee_wrap_next_mobile.mo1").find(".co_photo2").attr("src", "images/co" + (co_idx + 1) + ".png");
                     $(".coffee_wrap_next_mobile.mo1").fadeIn(500);
+                    $(".main_wrap").stop().animate({
+                        scrollTop: page_mtop[4] + "px"
+                    }, 10, "easeInOutQuint");
+                    
                 }else if(co_idx>=3 && co_idx<6){
                     $(".coffee_wrap_next_mobile.mo2").find(".co_photo2").attr("src", "images/co" + (co_idx + 1) + ".png");
                     $(".coffee_wrap_next_mobile.mo2").fadeIn(500);
+                    $(".main_wrap").stop().animate({
+                        scrollTop: (page_mtop[4]+win) + "px"
+                    }, 10, "easeInOutQuint");
                 }
+                
                 
             } else if (mob == 2) {
                 $(".co_bg_next").find("img").attr("src", "images/co" + (co_idx + 1) + ".png");
             }
+            
+            $(".co_info").find("h2").text(co_info_title[co_idx]);
+            $(".co_info").find("span").text(co_info_span[co_idx]);
         });
 
         $(".co_close").click(function () {
